@@ -1,24 +1,28 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Header from './components/Header/Header';
+import MainBody from './components/MainBody/MainBody';
+
 
 function App() {
+
+	const [loading, setLoading] = useState(false);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+		{loading 
+			?	<div className="Loading">
+					<Header/>
+					<div className="Spinner__With__Text">
+					<div className="loader"></div>
+						loading
+					</div>
+				</div>
+			:	<>
+					<Header/>
+					<MainBody/>
+				</>
+	}		
     </div>
   );
 }
