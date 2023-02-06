@@ -1,6 +1,5 @@
-import React from 'react';
-import { resultsPerPageOptions, sortByOptions } from '../../../constants/constants';
-import Select from '../../../Select/Select';
+import { resultsPerPageOptions, sortByOptions } from "../../../constants/constants";
+import Select from "../../../Select/Select";
 
 
 const TableHeader = () => {

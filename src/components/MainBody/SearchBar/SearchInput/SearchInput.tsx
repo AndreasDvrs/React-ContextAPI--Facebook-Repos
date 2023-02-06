@@ -1,8 +1,8 @@
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import { useState, forwardRef, useImperativeHandle } from "react";
 
 const SearchInput = forwardRef((props, ref: any) => {
 	
-	const [inputValue, setInputValue] = useState('');
+	const [inputValue, setInputValue] = useState("");
 
 	useImperativeHandle(ref, () => {
 		return {
@@ -11,7 +11,7 @@ const SearchInput = forwardRef((props, ref: any) => {
 	});
 
 	const onInputChange = (e: React.FormEvent<HTMLInputElement>) => {
-		setInputValue(e?.currentTarget?.value ?? '');
+		setInputValue(e?.currentTarget?.value ?? "");
 	};
 
   return (

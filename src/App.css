@@ -1,3 +1,9 @@
+* {
+	font-size: 100%;
+	font-family: 'Montserrat', sans-serif;
+	;
+}
+
 html {
 	box-sizing: border-box;
 }
@@ -12,6 +18,10 @@ path {
 
 header {
 	height: 50px;
+}
+
+.Disabled {
+	cursor: not-allowed !important;
 }
 
 .Loading {
@@ -86,36 +96,24 @@ header {
 	display: grid;
 	grid-template-columns: repeat(11, 1fr);
 	column-gap: 20px;
-	/* display: flex;
-	flex-direction: column;
-	gap: 5vh;
-	align-items: center;
-	padding: 10vh 25vw 0px 25vw; */
 }
 
 .SearchBar {
 	grid-column: 2/8;
-	/* width: 40vw; */
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	height: 49px;
 	border: 1px solid #3B5998;
 	border-radius: 30px;
-	/* width: 35vw; */
 	margin-top: 92px;
 }
 
 .Search__Input {
 	border: none;
-	/* position: absolute;
-	top: 5px;
-	left: 18px; */
-	/* line-height: 3em; */
 	grid-column: 1/6;
 	background: transparent;
 	color: #3B5998;
-	/* padding: 15px; */
 	padding-left: 22px;
 	min-width: 0;
 	flex: 1;
@@ -167,7 +165,7 @@ header {
 }
 
 .Table__Header__Text {
-	font-size: 25px;
+	font-size: 22px;
 	font-weight: 600;
 	color: #3B5998;
 	line-height: 27px;
@@ -211,6 +209,10 @@ select:focus-visible {
 	outline: none;
 }
 
+.Select__Container {
+	font-size: 11px;
+}
+
 .Sort__Per__Page__Container {
 	display: flex;
 	gap: 3vw;
@@ -219,7 +221,7 @@ select:focus-visible {
 .Label__Results {
 	color: #495c99;
 	font-weight: 600;
-	font-size: 13px;
+	font-size: 12px;
 	line-height: 15px;
 }
 
@@ -326,12 +328,14 @@ td svg {
 .Description__Title {
 	color: #3B5998;
 	font-weight: bold;
-	font-size: 18px;
+	font-size: 16px;
 }
 
 .Description {
 	color: #3B5998;
-	font-weight: normal;
+	font-weight: 500;
+	font-size: 15px;
+	margin-top: 5px;
 }
 
 .Pagination {
@@ -360,6 +364,7 @@ td svg {
 	height: 33px;
 	justify-content: center;
 	align-items: center;
+	font-size: 14px;
 }
 
 .Active__Page {
@@ -527,7 +532,7 @@ ul.options li:hover {
 }
 
 .Sort__By__Container .Select__Button {
-	width: 88px;
+	width: 95px;
 	height: 32px;
 	color: #3B5998;
 }
@@ -578,5 +583,15 @@ ul.options li:hover {
 	.Main__Body__Container {
 		max-width: unset;
 		margin: unset;
+	}
+}
+
+@media only screen and (max-height: 750px) {
+	.SearchBar {
+		margin-top: 5px;
+	}
+
+	tbody {
+		max-height: 53vh;
 	}
 }

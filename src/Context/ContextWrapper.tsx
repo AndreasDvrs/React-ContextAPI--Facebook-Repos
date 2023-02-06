@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import { useCallback, useEffect } from "react";
 import { createContext, useState } from "react";
-import { fetchRepos } from '../api/fetch-repos';
-import { NormalizedRepo, normalizeRepos } from '../normalizers/normalizeRepos';
-import { checkTotalPages } from '../utils/checkTotalPages';
-import { getFilteredReposAndPages } from '../utils/getFilteredReposAndPages';
-import { sortByNameOrStars } from '../utils/sorting';
+import { fetchRepos } from "../api/fetch-repos";
+import { SortByOptionsValues } from "../components/types/types";
+import { NormalizedRepo, normalizeRepos } from "../normalizers/normalizeRepos";
+import { checkTotalPages } from "../utils/checkTotalPages";
+import { getFilteredReposAndPages } from "../utils/getFilteredReposAndPages";
+import { sortByNameOrStars } from "../utils/sorting";
 
 export const GlobalContext = createContext(null as any);
 
@@ -12,8 +13,8 @@ export const ContextWrapper = (props: any) => {
 	const [loading, setLoading] = useState<boolean>(true);
 	const [allRepos, setAllRepos] = useState<NormalizedRepo[]>([]);
 	const [filteredRepos, setFilteredRepos] = useState<Record<number,NormalizedRepo[]>>([]);
-	const [searchTerm, setSearchTerm] = useState<string>('');
-	const [sortBy, setSortBy] = useState<string>('');
+	const [searchTerm, setSearchTerm] = useState<string>("");
+	const [sortBy, setSortBy] = useState<string>("");
 	const [perPage, setPerPage] = useState<number>(8);
 	const [totalPages, setTotalPages] = useState<number[]>([]);
 	const [currentPage, setCurrentPage] = useState<number>(1);
@@ -28,35 +29,37 @@ export const ContextWrapper = (props: any) => {
 			setFilteredRepos(filteredRepositories);
 			setTotalPages(newTotalPages);
 			setLoading(false);
-		});
+		}).catch((error: any) => {
+			setFilteredRepos([]);
+			setTotalPages([]);
+			setLoading(false);
+		})			
 	}, []);
 
 	useEffect(() => {
 		setCurrentPage(1);
 	}, [perPage, searchTerm, sortBy]);
 
-	const updateSearchTerm = (currentSearchTerm: string): void => {
-		if (currentSearchTerm !== searchTerm) {
-			let caseInsensitiveRegex = new RegExp(currentSearchTerm, "i");
-			let reposOfInterest: NormalizedRepo[] = allRepos.filter((repo) => {
-				if (!currentSearchTerm) {
-					return true;
-				} 
-				return caseInsensitiveRegex.test(repo.name);
-			});
-			if (sortBy) {
-				reposOfInterest = sortByNameOrStars[sortBy](reposOfInterest);
-			}
-			let newTotalPages: number[] = checkTotalPages(reposOfInterest.length, perPage);
-			let reposToSet: Record<number,NormalizedRepo[]> = getFilteredReposAndPages(reposOfInterest, newTotalPages, perPage);			
-			setFilteredRepos(reposToSet);
-			setTotalPages(newTotalPages);
-			setSearchTerm(currentSearchTerm);
+	const updateSearchTerm = useCallback((currentSearchTerm: string) => {
+		let caseInsensitiveRegex = new RegExp(currentSearchTerm, "i");
+		let reposOfInterest: NormalizedRepo[] = allRepos.filter((repo) => {
+			if (!currentSearchTerm) {
+				return true;
+			} 
+			return caseInsensitiveRegex.test(repo.name);
+		});
+		if (sortBy) {
+			reposOfInterest = sortByNameOrStars[sortBy](reposOfInterest);
 		}
-	}
-	
-	const updatePerPage = (currentPerPage: number): void => {
-		if (currentPerPage !== perPage) {
+		let newTotalPages: number[] = checkTotalPages(reposOfInterest.length, perPage);
+		let reposToSet: Record<number,NormalizedRepo[]> = getFilteredReposAndPages(reposOfInterest, newTotalPages, perPage);			
+		setFilteredRepos(reposToSet);
+		setTotalPages(newTotalPages);
+		setSearchTerm(currentSearchTerm);
+	}, [allRepos, perPage, sortBy]);		
+
+	const updatePerPage = useCallback((currentPerPage: number) => {
+		if (currentPerPage) {
 			let allReposFilteredFlat: NormalizedRepo[] = Object.values(filteredRepos).flat();
 			const newTotalPages: number[] = checkTotalPages(allReposFilteredFlat.length, currentPerPage);
 			let updatedFilteredRepos: Record<number,NormalizedRepo[]> = getFilteredReposAndPages(allReposFilteredFlat, newTotalPages, currentPerPage);
@@ -64,9 +67,9 @@ export const ContextWrapper = (props: any) => {
 			setTotalPages(newTotalPages);
 			setPerPage(currentPerPage);
 		}
-	}	
+	}, [filteredRepos]);
 
-	const updateSortBy = (currentSortBy: string): void => {
+	const updateSortBy = useCallback((currentSortBy: SortByOptionsValues) => {
 		if (sortBy !== currentSortBy) {
 			const allReposFilteredFlat: NormalizedRepo[] = Object.values(filteredRepos).flat();
 			const sortedFilteredRepos: NormalizedRepo[] = sortByNameOrStars[currentSortBy](allReposFilteredFlat);
@@ -74,7 +77,7 @@ export const ContextWrapper = (props: any) => {
 			setFilteredRepos(updatedFilteredRepos);
 			setSortBy(currentSortBy);
 		}
-	}
+	}, [filteredRepos, sortBy, perPage, totalPages]);
 
 	const updateCurrentPage = (clickedPage: number): void => {
 		setCurrentPage(clickedPage);

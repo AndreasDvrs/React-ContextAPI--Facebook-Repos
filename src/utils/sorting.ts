@@ -21,7 +21,7 @@ export const sortByName = (repos: NormalizedRepo[]): NormalizedRepo[] => {
 export const sortByStars = (repos: NormalizedRepo[]): NormalizedRepo[] => {
 	return ([
 		...repos.sort((repo1: NormalizedRepo, repo2: NormalizedRepo) => {
-			return repo1.stars > repo2.stars ? 1 : repo1.stars < repo2.stars ? -1 : 0
+			return repo1.stars > repo2.stars ? -1 : repo1.stars < repo2.stars ? 1 : 0
 		})
 	]);
 }

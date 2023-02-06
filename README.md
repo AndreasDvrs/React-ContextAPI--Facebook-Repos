@@ -1,3 +1,42 @@
+# Project Description and Design Decisions
+
+Design desicions set1: how to manage UI and responsiveness in an easy way.
+	- I went with css grid as the main guide, so that responsiveness is achieved
+	- Flexboxes are used to center and style items within this guide
+	- Components are split up as much as possible, for easy code navigation
+
+Design decisions set2: how to manage state - technical decisions.
+	-I went with the Context API, since redux would be an unecessary overhead in my opinion
+	-Most of the logic happens in there. 
+	-Update functions are passed down to children wrapped with the useCallback hook. This is not necessary by any means, did it for demonstration purposes
+	-Since most of the logic is there, it was decided to go with multiple state variables, instead of a global store like object. If more were needed, we should go with a store
+	-useEffect hooks are avoided, as much as possible, since they complex the logic very much IMHO.
+
+Design decisions set3: Business/Functionality logic	
+	-The main idea is that we fetch the 100 repositories and keep them in memory(allRepos), after normalization, to keep whats necessary.
+	-But we actually care about the repos user has searched for (all if no search input), so we keep these in a separate object(filteredRepos), having their page as key.
+		We could stick to one object, with two keys of filtered/unfiltered, but it would complex the logic with no important benefit.
+	-Also when actions affecting pagination happen, total pages are recalculated and stored in an array. Also user is sent to page1 to avoid confusion.
+	-Pagination component is memoized since there is quite some logic nested in there, so we would not want it to rerender unless absolutely necessary.
+
+Improvements that could be applied
+	-Use either SASS or Styled components (my main 2) to get rid of pure css
+	-Include abort signal in API request
+	-More try catch inside the code (have only added one in the first request just for demonstration) and a banner/alert to inform the user
+	-A little more love on responsiveness (althoug in most cases it behaves nicely)
+	-Keyboard handlers (e.g. click enter to search)
+	-Some more transitions/hover effects etc
+
+
+
+
+
+
+
+
+# REACT APP DEFAULT README
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -10,9 +49,6 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
 ### `npm test`
 

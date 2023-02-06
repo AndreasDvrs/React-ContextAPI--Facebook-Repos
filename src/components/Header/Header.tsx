@@ -1,5 +1,4 @@
-import React from 'react';
-import FacebookIconPath from '../IconPaths/facebook';
+import FacebookIconPath from "../IconPaths/facebook";
 
 const Header = () => {
   return (

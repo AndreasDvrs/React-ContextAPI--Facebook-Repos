@@ -1,8 +1,8 @@
-import React, { useContext, useState } from 'react';
-import { GlobalContext } from '../../../../Context/ContextWrapper';
-import { GlobalContextApi } from '../../../../Context/types';
-import expandPath from '../../../IconPaths/expand';
-import starPath from '../../../IconPaths/star';
+import { useContext, useState } from "react";
+import { GlobalContext } from "../../../../Context/ContextWrapper";
+import { GlobalContextApi } from "../../../../Context/types";
+import expandPath from "../../../IconPaths/expand";
+import starPath from "../../../IconPaths/star";
 
 const TableBody = () => {
 
@@ -24,11 +24,11 @@ const TableBody = () => {
 		{filteredRepos && filteredRepos[currentPage]?.map((data1: any) => (
 				<tr 
 					key={data1.id} 
-					className={expandedRepoIds.includes(data1.id) ? 'Body__Table__Row__Selected' : 'Body__Table__Row'} 
+					className={expandedRepoIds.includes(data1.id) ? "Body__Table__Row__Selected" : "Body__Table__Row"} 
 					onClick={() => handleRowClick(data1.id)}
 				>
 					<td className="Repo__Name__Container">
-						<div className="Repo__Name">{data1.name ?? 'No Name Found'}</div>
+						<div className="Repo__Name">{data1.name ?? "No Name Found"}</div>
 					</td>
 					<td className="Cell__Star">
 						<div className="Star__Container">
@@ -47,7 +47,7 @@ const TableBody = () => {
 						<td className="Description__Row">
 							<div className="Description__Content">
 								<div className="Description__Title">Description:</div>
-								<div className="Description">{data1.description ?? 'No Description Found'}</div>
+								<div className="Description">{data1.description ?? "No Description Found"}</div>
 							</div>
 						</td>
 					}

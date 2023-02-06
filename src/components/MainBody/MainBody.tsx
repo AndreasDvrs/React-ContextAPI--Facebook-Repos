@@ -1,6 +1,5 @@
-import React from 'react';
-import SearchBar from './SearchBar/SearchBar';
-import Table from './Table/Table';
+import SearchBar from "./SearchBar/SearchBar";
+import Table from "./Table/Table";
 
 const MainBody = () => {
 

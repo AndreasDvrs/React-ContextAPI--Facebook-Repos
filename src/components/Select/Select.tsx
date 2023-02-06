@@ -1,10 +1,10 @@
-import React, { useContext, useState } from 'react';
-import { GlobalContext } from '../../Context/ContextWrapper';
-import { GlobalContextApi } from '../../Context/types';
-import expandPath from '../IconPaths/expand';
+import { useContext, useState } from "react";
+import { GlobalContext } from "../../Context/ContextWrapper";
+import { GlobalContextApi } from "../../Context/types";
+import expandPath from "../IconPaths/expand";
 import { 
 	PerPageOptions, PerPageOptionsValues, SelectType, SortByOptions, SortByOptionsValues 
-} from '../types/types';
+} from "../types/types";
 
 export interface SelectProps {
 	selectType: SelectType;
@@ -36,7 +36,7 @@ const Select = ({ defaultValue, options, defaultSelectedOption, selectType}: Sel
   return (
 	<div className="Select__Container">
 		<button 
-			className={`Select__Button ${visibleDropdown ? 'Select__Dropdown__Visible' : ''}`}
+			className={`Select__Button ${visibleDropdown ? "Select__Dropdown__Visible" : ""}`}
 			type="button" 
 			aria-haspopup="listbox" 
 			aria-expanded={visibleDropdown}

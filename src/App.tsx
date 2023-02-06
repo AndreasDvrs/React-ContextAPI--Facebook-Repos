@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import './App.css';
-import Header from './components/Header/Header';
-import MainBody from './components/MainBody/MainBody';
-import { GlobalContext } from './Context/ContextWrapper';
-import { GlobalContextApi } from './Context/types';
+import React, { useContext } from "react";
+import "./App.css";
+import Header from "./components/Header/Header";
+import MainBody from "./components/MainBody/MainBody";
+import { GlobalContext } from "./Context/ContextWrapper";
+import { GlobalContextApi } from "./Context/types";
 const App = () => {
 
 	const { loading } = useContext<GlobalContextApi>(GlobalContext);

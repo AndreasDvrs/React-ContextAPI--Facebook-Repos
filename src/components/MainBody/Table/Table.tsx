@@ -1,7 +1,6 @@
-import React from 'react';
-import TableBody from './Body/TableBody';
-import TableFooter from './Footer/TableFooter';
-import TableHeader from './Header/TableHeader';
+import TableBody from "./Body/TableBody";
+import TableFooter from "./Footer/TableFooter";
+import TableHeader from "./Header/TableHeader";
 
 const Table = () => {
   return (
