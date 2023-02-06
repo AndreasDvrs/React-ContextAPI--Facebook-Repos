@@ -1,55 +1,104 @@
-import React, { useState } from 'react';
-
-const totalRepos = 18;
-const reposPerPage= 3;
-let totalPages: number[] = [];
+import React, { useContext } from 'react';
+import { GlobalContext } from '../../../../Context/ContextWrapper';
+import { GlobalContextApi } from '../../../../Context/types';
 
 const TableFooter = () => {
 
-	const [activePage, setActivePage] = useState<number>(1);
+	const { totalPages, currentPage, updateCurrentPage } = useContext<GlobalContextApi>(GlobalContext);
 
-	if (totalRepos%reposPerPage > 0) {
-		totalPages = Array.from(Array(totalRepos/reposPerPage +1).keys());
-	} else {
-		totalPages = Array.from(Array(totalRepos/reposPerPage).keys());
+	const handleClick = (page: number) => {		
+		updateCurrentPage(page);
 	}
-	console.log("🚀 ~ file: TableFooter.tsx:41 ~ TableFooter ~ totalPages", totalPages)
-
-	//construct pages and memeo ALSO ADD THE ACTIVE ONE AS CLASS
 
   return (
 	<tfoot>
 		<tr className="Pagination">
 			<td className="Pagination__Row">
-				{/* <div className="Pagination__Container"> */}
-					<button type="button" className="Pagination__Element Pagination__Element__Nav">
+				{currentPage !== 1 &&
+					<button onClick={() => updateCurrentPage(currentPage-1)} type="button" className="Pagination__Element Pagination__Element__Nav">
 						<svg viewBox="0 3 22 18">
 							<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"></path>
 						</svg>
 					</button>
-					<div className="Pagination__Numbers">
-					{totalPages.map((page) => {
-						if (page <=2) {
-							return <button className="Pagination__Element__Number Pagination__Element" key={page} type="button">{page+1}</button>
+				}					
+				<div className="Pagination__Numbers">
+				{1 <= currentPage && currentPage <=3 && 
+					<>
+						<button 
+							className={`Pagination__Element__Number Pagination__Element ${1 === currentPage ? 'Active__Page' : ''}`}  
+							onClick={() => handleClick(1)} 
+							key={1} 
+							type="button"
+						>
+								{1}
+						</button>								
+						{totalPages.length > 1 && 
+								<button 
+									className={`Pagination__Element__Number Pagination__Element ${2 === currentPage ? 'Active__Page' : ''}`}  
+									onClick={() => handleClick(2)} 
+									key={2} type="button"
+								>
+									{2}
+								</button>
 						}
-						<></>
-					})}
-					{totalPages.length > 4 &&
+						{totalPages.length > 2 && 
+							<button 
+							className={`Pagination__Element__Number Pagination__Element ${3 === currentPage ? 'Active__Page' : ''}`} 
+								onClick={() => handleClick(3)} 
+								key={3} 
+								type="button"
+							>
+								{3}
+							</button>
+						}
+						{totalPages.length > 3 && <div className="Pagination__Element__Ellipsis Pagination__Element">...</div>}
+						{totalPages.length > 4 && 
+							<button 
+								className={`Pagination__Element__Number Pagination__Element`} 
+								onClick={() => handleClick(totalPages.length)} 
+								type="button" >
+									{totalPages.length}
+							</button>
+							}
+					</>
+				}
+				{3 < currentPage && currentPage < totalPages.length-2 && 
+					<>
+						<button className='Pagination__Element__Number Pagination__Element' onClick={() => handleClick(1)} key={1} type="button">{1}</button>
 						<div className="Pagination__Element__Ellipsis Pagination__Element">...</div>
-
-					}
-					{totalPages.length > 3 &&
-						<button className="Pagination__Element__Number Active__Page Pagination__Element" type="button" >{totalPages.length}</button>
-					}
-					
-					{/* <div className="Pagination__Element__Number">{totalPages.length}</div> */}
-					</div>
-					<button className="Pagination__Element__Nav Pagination__Element" type="button">
-						<svg viewBox="-1 3 22 18">
-							<path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
-						</svg>
-					</button>
-				{/* </div> */}
+						{
+							[currentPage-1, currentPage, currentPage+1].map((page) => (
+								<button onClick={() => handleClick(page)} className={`Pagination__Element__Number Pagination__Element ${page === currentPage ? 'Active__Page' : ''}`} key={page} type="button">{page}</button>
+							))
+						}
+						<div className="Pagination__Element__Ellipsis Pagination__Element">...</div>
+						<button className={`Pagination__Element__Number Pagination__Element`} onClick={() => handleClick(totalPages.length)} type="button" >{totalPages.length}</button>
+					</>
+				}
+				{totalPages.length -2 > 0 && totalPages.length -2  <= currentPage &&
+					<>
+						<button onClick={() => handleClick(1)} className='Pagination__Element__Number Pagination__Element' key={1} type="button">{1}</button>
+						<div className="Pagination__Element__Ellipsis Pagination__Element">...</div>
+						{
+							[totalPages.length-2, totalPages.length-1, totalPages.length].map((page) => (
+								<button 
+									className={`Pagination__Element__Number Pagination__Element ${page === currentPage ? 'Active__Page' : ''}`} 
+									key={page} type="button"
+									onClick={() =>handleClick(page) }
+								>{page}</button>
+							))
+						}
+					</>
+				} 
+				</div>
+				{totalPages.length && (currentPage !== totalPages.length) 
+					?	<button onClick={() => updateCurrentPage(currentPage+1)} className="Pagination__Element__Nav Pagination__Element" type="button">
+							<svg viewBox="-1 3 22 18">
+								<path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"></path>
+							</svg>
+						</button> 
+					: <></>
+				}
 			</td>
 		</tr>
 	</tfoot>

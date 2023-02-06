@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { ContextWrapper } from './Context/ContextWrapper';
 import './index.css';
-import App from './App';
+import Router from './Router';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -9,6 +10,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <App />
+	<ContextWrapper>
+    	<Router />
+	</ContextWrapper>
   </React.StrictMode>
 );

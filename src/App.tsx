@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import './App.css';
 import Header from './components/Header/Header';
 import MainBody from './components/MainBody/MainBody';
+import { GlobalContext } from './Context/ContextWrapper';
+import { GlobalContextApi } from './Context/types';
+const App = () => {
 
-
-function App() {
-
-	const [loading, setLoading] = useState(false);
-
+	const { loading } = useContext<GlobalContextApi>(GlobalContext);
   return (
-    <div className="App">
+	<div className="App">
 		{loading 
 			?	<div className="Loading">
 					<Header/>
@@ -22,8 +21,8 @@ function App() {
 					<Header/>
 					<MainBody/>
 				</>
-	}		
-    </div>
+		}
+	</div>
   );
 }
 

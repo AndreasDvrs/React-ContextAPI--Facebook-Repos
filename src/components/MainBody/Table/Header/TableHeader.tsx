@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { resultsPerPageOptions, sortByOptions } from '../../../constants/constants';
+import Select from '../../../Select/Select';
+
 
 const TableHeader = () => {
 
@@ -10,18 +13,19 @@ const TableHeader = () => {
 			</td> 
 			<td className="Sort__Per__Page__Container">
 				<div className="Sort__By__Container">
-					<button type="button" defaultValue="Sort__By" className="Sort__By__Select">
-						<option style={{display:"none"}} value="sortby">Sort By</option>
-						<option value="name">Name</option>
-						<option value="stars">Stars</option>
-					</button>
+					<Select
+						defaultValue="Sort By"
+						options={sortByOptions}
+						selectType="sortBy"
+					/>
 				</div>
 				<div className="Results__Per__Page">
 					<label htmlFor="results_per_page" className="Label__Results">results per page</label> 
-					<button id="results_per_page" className="Results__Select">					
-						<option value="name">4</option>
-						<option value="stars">8</option>
-					</button>
+					<Select
+						options={resultsPerPageOptions}
+						defaultSelectedOption={resultsPerPageOptions[0]}
+						selectType="perPage"
+					/>
 				</div>
 			</td>
 		</tr>
