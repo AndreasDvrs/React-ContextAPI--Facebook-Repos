@@ -1,39 +1,60 @@
 # Project Description and Design Decisions
 
-Design desicions set1: how to manage UI and responsiveness in an easy way.
-	- I went with css grid as the main guide, so that responsiveness is achieved
+# Design desicions set1: how to manage UI and responsiveness in an easy way.
+	- Chose css grid as the main guide, so that responsiveness is achieved
+	
 	- Flexboxes are used to center and style items within this guide
+	
 	- Components are split up as much as possible, for easy code navigation
 
-Design decisions set2: how to manage state - technical decisions.
-	-I went with the Context API, since redux would be an unecessary overhead in my opinion
-	-Most of the logic happens in there. 
-	-Update functions are passed down to children wrapped with the useCallback hook. This is not necessary by any means, did it for demonstration purposes
-	-Since most of the logic is there, it was decided to go with multiple state variables, instead of a global store like object. If more were needed, we should go with a store
-	-useEffect hooks are avoided, as much as possible, since they complex the logic very much IMHO.
+# Design decisions set2: how to manage state - technical decisions.
+	- Chose the Context API, since redux would be an unecessary overhead in my opinion
+	
+	- Most of the logic happens in there. 
+	
+	- Update functions are passed down to children wrapped with the useCallback hook. This is not necessary 
+		by any means, did it for demonstration purposes
+		
+	-Since most of the logic is there, it was decided to go with multiple state variables, instead of a 
+		global store like object (we could do it either way not much difference). 
+		If this was production code we should enhance contextAPI as described here: 
+		https://www.developerway.com/posts/how-to-write-performant-react-apps-with-context
+		
+	-useEffect hooks are avoided, as much as possible, since they complex the logic IMHO.
 
-Design decisions set3: Business/Functionality logic	
-	-The main idea is that we fetch the 100 repositories and keep them in memory(allRepos), after normalization, to keep whats necessary.
-	-But we actually care about the repos user has searched for (all if no search input), so we keep these in a separate object(filteredRepos), having their page as key.
-		We could stick to one object, with two keys of filtered/unfiltered, but it would complex the logic with no important benefit.
-	-Also when actions affecting pagination happen, total pages are recalculated and stored in an array. Also user is sent to page1 to avoid confusion.
-	-Pagination component is memoized since there is quite some logic nested in there, so we would not want it to rerender unless absolutely necessary.
+# Design decisions set3: Business/Functionality logic
+	-The main idea is that we fetch the 100 repositories and keep them in memory(allRepos), after normalization, 
+		to keep whats necessary.
+		
+	-But we actually care about the repos user has searched for (all if no search input), so we keep these 
+		in a separate object(filteredRepos), having their page as key.
+		
+		We could stick to one object, with two keys of filtered/unfiltered, but it would complex the logic 
+			with no important benefit.
+			
+	-When actions affecting pagination happen, total pages are recalculated and stored in an array. 
+		Also user is sent to page1 to avoid confusion.
+		
+	-Pagination component is memoized since there is quite some logic nested in there, 
+		so we would not want it to rerender unless absolutely necessary.
 
-Improvements that could be applied
+# Improvements that could be applied
+	-enhance contextAPI as described here: 
+		https://www.developerway.com/posts/how-to-write-performant-react-apps-with-context
+	
 	-Use either SASS or Styled components (my main 2) to get rid of pure css
+	
 	-Include abort signal in API request
-	-More try catch inside the code (have only added one in the first request just for demonstration) and a banner/alert to inform the user
-	-A little more love on responsiveness (althoug in most cases it behaves nicely)
+	
+	-More try catch inside the code (have only added one in the first request just for demonstration) 
+		and a banner/alert to inform the user
+		
+	-A little more love on responsiveness (although in most cases it behaves nicely)
+	
 	-Keyboard handlers (e.g. click enter to search)
+	
 	-Some more transitions/hover effects etc
-
-
-
-
-
-
-
-
+	
 # REACT APP DEFAULT README
 
 
